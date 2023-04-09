@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block Sidebar %}
+	<!-- Sidebar Start -->
+	<div class="sidebar pe-4 pb-3">
+		<nav class="navbar bg-secondary navbar-dark">
+			<a href="index.html" class="navbar-brand mx-4 mb-3">
+				<h3 class="text-primary">
+					<i class="fa fa-user-edit me-2"></i>MyCinema</h3>
+			</a>
+			<div class="d-flex align-items-center ms-4 mb-4">
+				<div class="position-relative">
+					<img class="rounded-circle" src="{{ asset("backend/img/user.jpg") }}" alt="" style="width: 40px; height: 40px;">
+					<div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+				</div>
+				<div class="ms-3">
+					<h6 class="mb-0">Saidi Meryam</h6>
+					<span>Admin_Stock</span>
+				</div>
+			</div>
+			<div class="navbar-nav w-100">
+				<a href="/home" class="nav-item nav-link">
+					<i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+						<i class="fa fa-table me-2"></i>Produits</a>
+					<div class="dropdown-menu bg-transparent border-0">
+						<a href="/produit/liste" class="dropdown-item">Liste Des Produits</a>
+						<a href="/produit/ajout" class="dropdown-item">Nouveau Produit</a>
+					</div>
+				</div>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">
+						<i class="fa fa-laptop me-2"></i>Catégories</a>
+					<div class="dropdown-menu bg-transparent border-0">
+						<a href="/categorie/liste" class="dropdown-item">Liste Des Catégories</a>
+						<a href="/categorie/ajout" class="dropdown-item">Nouvelle Catégorie</a>
+					</div>
+				</div>
+				<a href="widget.html" class="nav-item nav-link">
+					<i class="fa fa-th me-2"></i>Offres</a>
+				<a href="form.html" class="nav-item nav-link">
+					<i class="fa fa-keyboard me-2"></i>Avis</a>
+			</div>
+		</nav>
+	</div>
+	<!-- Sidebar End -->
+{% endblock %}
+
+{% block changeMe %}
+	<div class="container-fluid">
+		<div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+			<div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+				<div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+					{% if categorie is not null %}
+						<h3>{{ categorie.nom }}</h3>
+						<p>
+							{{ categorie.produits|length }}
+							produits
+						</p>
+						<hr>
+						<a href="/categorie/liste">Retour</a>
+					{% else %}
+						<a href="/categorie/liste">Retour</a>
+						<p>La categorie n'existe pas.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
