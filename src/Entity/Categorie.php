@@ -19,7 +19,14 @@ class Categorie
 
 
     #[ORM\Column(name: "nom", type: "string", length: 255, nullable: false)]
-    private string $nom;
+    #[Assert\NotBlank(message: "Veuillez entrer un nom pour la catégorie")]
+    #[Assert\Length(
+        min: 5,
+        max: 9,
+        minMessage: "Le nom d'une catégorie doit comporter au moins {{ limit }} caractères",
+        maxMessage: "Le nom d'une catégorie doit comporter au plus {{ limit }} caractères"
+    )]
+    private ?string $nom;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
     private Collection $produits;

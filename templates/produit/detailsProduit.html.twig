@@ -37,7 +37,7 @@
 						<a href="/categorie/ajout" class="dropdown-item">Nouvelle Catégorie</a>
 					</div>
 				</div>
-				<a href="widget.html" class="nav-item nav-link">
+				<a href="/offre/liste" class="nav-item nav-link">
 					<i class="fa fa-th me-2"></i>Offres</a>
 				<a href="form.html" class="nav-item nav-link">
 					<i class="fa fa-keyboard me-2"></i>Avis</a>
@@ -53,6 +53,9 @@
 			<div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
 				<div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
 					{% if produit is not null %}
+						<p>Image:
+							{{ produit.image }}</p>
+						<hr>
 						<h3>{{ produit.productname }}</h3>
 						<p>Barcode:
 							{{ produit.barcode }}</p>
@@ -67,9 +70,6 @@
 						{% endif %}
 						<p>Description:
 							{{ produit.descriptionproduct }}</p>
-						<p>Image:
-							{{ produit.imageproduct }}</p>
-						<hr>
 						<a href="/produit/liste">Retour</a>
 					{% else %}
 						<a href="/produit/liste">Retour</a>
@@ -84,6 +84,8 @@
 			<div class="col-sm-12 col-xl-6">
 				<div class="bg-secondary rounded h-100 p-4">
 					{% if produit is not null %}
+						<h6 class="mb-4">wela Description (lorem)
+						</h6>
 						<h6 class="mb-4">{{ produit.productname }}</h6>
 						<p>Barcode:
 							{{ produit.barcode }}</p>
@@ -98,8 +100,6 @@
 						{% endif %}
 						<p>Description:
 							{{ produit.descriptionproduct }}</p>
-						<p>Image:
-							{{ produit.imageproduct }}</p>
 						<hr>
 						<a href="/produit/liste">Retour</a>
 					{% else %}
@@ -113,7 +113,7 @@
 			<div class="col-sm-12 col-xl-6">
 				<div class="bg-secondary rounded h-100 p-4">
 					<p>Image:
-						{{ produit.imageproduct }}</p>
+						{{ produit.image }}</p>
 				</div>
 			</div>
 

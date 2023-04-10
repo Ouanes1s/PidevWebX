@@ -25,17 +25,19 @@ class Produit
     #[ORM\Column(name: "productName", type: "text", nullable: false)]
     #[Assert\NotBlank(message: "Veuillez entrer un nom pour le produit")]
     #[Assert\Length(
-        min: 5,
-        max: 50,
-        minMessage: "Le nom d'un produit doit comporter au moins {{ limit }} caractères",
-        maxMessage: "Le nom d'un produit doit comporter au plus {{ limit }} caractères"
+        min: 3,
+        max: 9,
+        minMessage: "Le nom d'un produit doit comporter au moins {{ limit }} caractères.",
+        maxMessage: "Le nom d'un produit doit comporter au plus {{ limit }} caractères."
     )]
     private ?string $productname;
 
 
     #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false, name: 'purchasePrice')]
     #[Assert\NotNull(message: "Veuillez entrer un prix pour le produit")]
-    #[Assert\GreaterThan(value: 0, message: "Le prix doit être supérieur à 0")]
+    #[Assert\GreaterThan(value: 0, message: "Le prix d'un produit doit être supérieur à 0.")]
+    #[Assert\Regex("/^[0-9]+([,.][0-9]+)?$/", message: "Le prix d'un produit doit être un nombre")]
+    #[Assert\Type(type: "float", message: "Le prix d'un produit doit être un nombre")]
     private ?float $purchaseprice;
 
 
@@ -44,6 +46,8 @@ class Produit
 
 
     #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false)]
+    #[Assert\Regex("/^[0-9]+([,.][0-9]+)?$/", message: "Le prix doit être un nombre")]
+    #[Assert\Type(type: "float", message: "Le prix doit être un nombre")]
     private ?float $quantite;
 
 
@@ -51,8 +55,8 @@ class Produit
     private ?string $descriptionproduct;
 
 
-    #[ORM\Column(name: "imageProduct", type: "blob", length: 16777215, nullable: false)]
-    private $imageproduct;
+    #[ORM\Column(name: "imageProduct", type: "blob", length: 16777215, nullable: true)]
+    private $imageproduct = null;
 
 
     #[ORM\Column(name: "insertionDate", type: "date", nullable: true)]
@@ -60,6 +64,12 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Categorie $categorie = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Offre $Offre = null;
 
     public function getId(): ?int
     {
@@ -170,6 +180,30 @@ class Produit
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getOffre(): ?Offre
+    {
+        return $this->Offre;
+    }
+
+    public function setOffre(?Offre $Offre): self
+    {
+        $this->Offre = $Offre;
 
         return $this;
     }

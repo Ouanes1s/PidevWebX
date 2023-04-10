@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ProduitController extends AbstractController
 {
@@ -33,7 +35,7 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/produit/ajout', name: 'ajout_produit')]
-    public function ajoutProduit(Request $request, ManagerRegistry $registry)
+    public function ajoutProduit(Request $request, ManagerRegistry $registry, SluggerInterface $slugger)
     {
         $produit = new Produit();
 
@@ -42,13 +44,45 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $produit = $form->getData();
 
+            $brochureFile = $form->get('photo')->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($brochureFile) { //ça concerne la renommation du fichier (image) w yroddou new Filename
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('produit_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $produit->setImage($newFilename);
+            }
+            $produit = $form->getData();
+            /*
+            //DELETE
+            
+            if ($form['imageproduct']->getData() !== null) {
+                $file = $form['imageproduct']->getData();
+                $image = file_get_contents($file);
+                $produit->setImageproduct($image);
+            }
+            */
             $entityManager = $registry->getManager();
             $entityManager->persist($produit);
             $entityManager->flush();
 
-            return $this->redirectToRoute('ajout_produit');
+            //return $this->redirectToRoute('ajout_produit');
+            //besh yrajaali el formulaire vide
         }
         return $this->render('produit/ajoutProduit.html.twig', ['form' => $form->createView()]);
     }
