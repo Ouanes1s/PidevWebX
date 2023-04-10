@@ -1,0 +1,58 @@
+{{form_start(form,{'attr':{'novalidate': 'novalidate'}} )}}
+<table class="table text-center">
+
+<tr>
+<td><b> {{ form_label(form.nom_user,"Nom")  }} </b></td>
+<td>  {{ form_widget(form.nom_user) }} </td>  
+<td> {{ form_errors(form.nom_user) }} </td>
+</tr>
+
+
+<tr>
+<td><b>  {{ form_label(form.prenom_user,"Prénom") }} <b></td> 
+<td> {{ form_widget(form.prenom_user)}} </td> 
+<td>  {{ form_errors(form.prenom_user) }} </td> 
+</tr>
+
+
+<tr>
+<td><b>  {{ form_label(form.cin_user,"CIN") }} </b></td> 
+<td> {{ form_widget(form.cin_user)}} </td> 
+<td>  {{ form_errors(form.cin_user) }} </td> 
+</tr>
+
+
+<tr>
+<td><b>  {{ form_label(form.email,"Email") }} </b></td> 
+<td> {{ form_widget(form.email)}} </td> 
+<td>  {{ form_errors(form.email) }} </td> 
+</tr>
+
+
+<tr>
+<td><b>  {{ form_label(form.password,"Mot de passe") }} </b></td> 
+<td> {{ form_widget(form.password)}} </td> 
+<td>  {{ form_errors(form.password) }} </td> 
+</tr>
+
+<tr>
+<td><b> {{ form_label(form.date_contract,"Date contrat")  }} </b></td>
+<td>  {{ form_widget(form.date_contract) }} </td>  
+<td> {{ form_errors(form.date_contract) }} </td>
+</tr>
+ 
+ <tr>
+<td><b> {{ form_label(form.type_a,"Type")  }} </b></td>
+<td>  {{ form_widget(form.type_a) }} </td>  
+<td> {{ form_errors(form.type_a) }} </td>
+</tr>
+
+<tr>
+<td><b> {{ form_label(form.salaire,"Salaire")  }} </b></td>
+<td>  {{ form_widget(form.salaire) }} </td>  
+<td> {{ form_errors(form.salaire) }} </td>
+</tr>
+</table>
+<center><button class="btn btn-primary rounded-pill">{{ button_label|default('Save') }}</button></center>
+{{ form_end(form) }}
+                  
