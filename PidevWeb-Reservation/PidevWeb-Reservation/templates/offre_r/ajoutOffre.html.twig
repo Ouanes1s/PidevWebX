@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block Sidebar %}
+					<!-- Sidebar Start -->
+					<div class="sidebar pe-4 pb-3">
+						<nav class="navbar bg-secondary navbar-dark">
+							<a href="index.html" class="navbar-brand mx-4 mb-3">
+								<h3 class="text-primary">
+									<i class="fa fa-user-edit me-2"></i>MyCinema</h3>
+							</a>
+							<div class="d-flex align-items-center ms-4 mb-4">
+								<div class="position-relative">
+									<img class="rounded-circle" src="{{ asset("backend/img/user.jpg") }}" alt="" style="width: 40px; height: 40px;">
+									<div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+								</div>
+								<div class="ms-3">
+									<h6 class="mb-0">Amine Khalfaoui</h6>
+									<span>Agent</span>
+								</div>
+							</div>
+							<div class="navbar-nav w-100">
+								<a href="/home" class="nav-item nav-link active">
+									<i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+								<div class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+										<i class="fa fa-table me-2"></i>Reservations</a>
+									<div class="dropdown-menu bg-transparent border-0">
+										<a href="/PidevWeb-Reservation/public/index.php/reservation/liste" class="dropdown-item">Liste des reservations</a>
+										<a href="/PidevWeb-Reservation/public/index.php/reservation/ajout" class="dropdown-item">Nouvelle Reservation</a>
+									</div>
+								</div>
+								<div class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+										<i class="fa fa-laptop me-2"></i>Offres</a>
+									<div class="dropdown-menu bg-transparent border-0">
+										<a href="/PidevWeb-Reservation/public/index.php/offre/liste" class="dropdown-item">Liste Des Offres</a>
+										<a href="/PidevWeb-Reservation/public/index.php/offre/ajout" class="dropdown-item">Nouvelle Offre</a>
+									</div>
+								</div>
+								<div class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+										<i class="fa fa-laptop me-2"></i>Blogs</a>
+									<div class="dropdown-menu bg-transparent border-0">
+										<a href="/PidevWeb-Reservation/public/index.php/blog/liste" class="dropdown-item">Liste Des Blogs</a>
+										<a href="/PidevWeb-Reservation/public/index.php/blog/ajout" class="dropdown-item">Nouveau Blog</a>
+									</div>
+								</div>
+								
+								<a href="form.html" class="nav-item nav-link">
+									<i class="fa fa-keyboard me-2"></i>Log Out
+								</a>
+							</div>
+						</nav>
+					</div>
+					<!-- Sidebar End -->
+				{% endblock %}
+
+
+
+{% block body %}
+	<div class="container-fluid pt-4 px-4">
+		<div class="bg-secondary rounded-top p-4">
+			<div class="row">
+				<h6 class="mb-4">Ajouter une nouvelle offre</h6>
+				<form method="post">
+					{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+					<div class="mb-3">
+						{{ form_label(form.nomfilm_offr, 'Nom Evenement') }}
+						{{ form_widget(form.nomfilm_offr, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.nomfilm_offr) }}
+					</div>
+					<div class="mb-3">
+						{{ form_label(form.contenu_offr, 'Contenu Offre') }}
+						{{ form_widget(form.contenu_offr, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.contenu_offr) }}
+					</div>
+					<div class="mb-3">
+						{{ form_label(form.datedebut_offr, 'Date Debut') }}
+						{{ form_widget(form.datedebut_offr, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.datedebut_offr) }}
+					</div>
+					<div class="mb-3">
+						{{ form_label(form.datefin_offr, 'Date Fin') }}
+						{{ form_widget(form.datefin_offr, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.datefin_offr) }}
+					</div>
+					<div class="mb-3">
+						{{ form_label(form.code_offr, 'Code Offre') }}
+						{{ form_widget(form.code_offr, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.code_offr) }}
+					</div>
+					
+					<button type="submit" class="btn btn-outline-primary w-100 m-2">Créer</button>
+					{{ form_end(form) }}
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
