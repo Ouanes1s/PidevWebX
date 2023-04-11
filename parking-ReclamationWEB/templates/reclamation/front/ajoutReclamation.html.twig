@@ -1,0 +1,40 @@
+{% extends 'front.html.twig' %}
+{% block content %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+                <h6 class="mb-4">Ajouter une nouvelle reclamation</h6>
+                <form method="post">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    <div class="mb-3">
+                        {{ form_label(form.dateReclamation, 'Date') }}
+                        {{ form_widget(form.dateReclamation, {'attr': {'class': 'form-control datepicker'}}) }}
+                        {{ form_errors(form.dateReclamation) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.categorieReclamation, 'Categorie') }}
+                        {{ form_widget(form.categorieReclamation, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.categorieReclamation) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.typeReclamation, 'Type') }}
+                        {{ form_widget(form.typeReclamation, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.typeReclamation) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.messageReclamation, 'Message') }}
+                        {{ form_widget(form.messageReclamation, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.messageReclamation) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.importanceReclamation, 'Importance') }}
+                        {{ form_widget(form.importanceReclamation, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.importanceReclamation) }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary w-100 m-2">Créer</button>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

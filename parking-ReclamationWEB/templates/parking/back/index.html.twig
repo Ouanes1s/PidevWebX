@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block changeMe %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+                <div class="form-row align-items-end">
+                    <div class="col">
+                    </div>
+                </div>
+
+            </div>
+            {% if parkings %}
+            <div class="col-12">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-4">Liste des Parkings</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Capacite</th>
+                                <th>Taken Places</th>
+                                <th>Prix/h</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for parking in parkings %}
+                                <tr>
+                                    <td>LogoHere</td>
+                                    <td>{{ parking.nomParking }}</td>
+                                    <td>{{ parking.capaciteParking }}</td>
+                                    <td>{{ parking.takenpParking }}</td>
+                                    <td>{{ parking.prixParking }}</td>
+                                    <td>
+                                        <a href="{{ path('modifier-parking',{'id':parking.IdParking}) }}" class="btn btn-dark">Modifier</a>
+                                        <a href="{{ path('delete-parking',{'id':parking.IdParking}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr de supprimer ce Produit?');">Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>Aucun produit</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
