@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offres{% endblock %}
+
+{% block body %}
+    <h1>Offres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ offres.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomfilm_offr</th>
+                <td>{{ offres.nomfilmOffr }}</td>
+            </tr>
+            <tr>
+                <th>Contenu_offr</th>
+                <td>{{ offres.contenuOffr }}</td>
+            </tr>
+            <tr>
+                <th>Datedebut_offr</th>
+                <td>{{ offres.datedebutOffr }}</td>
+            </tr>
+            <tr>
+                <th>Datefin_offr</th>
+                <td>{{ offres.datefinOffr }}</td>
+            </tr>
+            <tr>
+                <th>Code_offr</th>
+                <td>{{ offres.codeOffr }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('/PidevWeb-Reservation/public/index.php/offre/liste') }}">back to list</a>
+
+    <a href="{{ path('/PidevWeb-Reservation/public/index.php/offre/modif', {'id': offre_r.id}) }}">edit</a>
+
+    
+{% endblock %}
