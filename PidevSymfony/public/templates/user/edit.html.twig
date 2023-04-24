@@ -1,0 +1,84 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href={{ path('app_user_index') }}>Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+              <img src={{asset('back/img/user.jpg')}}alt="Profile" class="rounded-circle">
+              <h2>{{ user.nomUser }} {{ user.prenomUser }}</h2>
+              <h3>{{ user.email }}</h3>
+              <div class="social-links mt-2">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+            
+            <div class="text-center">
+                      {{ include('user/_delete_form.html.twig') }}
+                      <br>
+                      <button class="btn btn-outline-dark rounded-pill"><a href="{{ path('app_admin_index') }}">Back to list</a></button>
+
+            </div>
+           
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                
+
+                <div class="tab-pane fade show active profile-overview" id="profile-edit">
+
+                    <center>
+                    <br>
+                    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+                    <br>
+                    </center>
+
+                </div>
+
+                
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+{% endblock %}
