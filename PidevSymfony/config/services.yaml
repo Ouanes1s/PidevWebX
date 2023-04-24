@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    imgEvent: '%kernel.project_dir%/public/imgEvent'
 
 services:
     # default configuration for services in *this* file
@@ -22,3 +23,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    twilio.client:
+        class: Twilio\Rest\Client
+        arguments: [ 'ACbed91d0c446a9add94d49783eeb20a9b', '0447659c3be62a7b5494049eb01aa56e' ]
+
+        # Add an alias for the twilio.client service
+    Twilio\Rest\Client: '@twilio.client'
+

@@ -6,9 +6,9 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,7 +19,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message:"Veuillez saisir votre email")]
     #[Assert\Email(message:" Cet email :'{{ value }}' n'est pas valide ")]
-
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,7 +28,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message:"Veuillez entrer un mot de passe")]
     private ?string $password = null;
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Veuillez saisir votre nom.")]
     private ?string $nom_user = null;
@@ -41,7 +42,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 8)]
     #[Assert\NotBlank(message:"Veuillez saisir votre numéro de carte nationale")]
     #[Assert\Type('numeric')]
+    // #[Assert\Length(
+    //     min: 8,
+    //     max: 8,
+    //     minMessage: "Le cin doit comporter au moins {{ limit }} caractères",
+    //     maxMessage: "Le nom doit comporter au plus {{ limit }} caractères"
+    // )]
     private ?string $cin_user = null;
+
     #[ORM\Column(length: 255)]
     private ?string $reset_token = null;
 
@@ -50,17 +58,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
     public function getNomUser(): ?string
     {
         return $this->nom_user;
@@ -95,6 +92,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCinUser(string $cin_user): self
     {
         $this->cin_user = $cin_user;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -170,4 +179,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
+    
 }

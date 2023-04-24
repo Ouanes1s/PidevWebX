@@ -1,34 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block header %}
-         <header>
-            <!-- header inner -->
-            <div class="header">
-               <div class="container-fluid">
-                  <div class="row">
-                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-                        <div class="full">
-                           <div class="center-desk">
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <ul class="btn">
-                           <li class="down_btn"><a href="registration1">Sign Up</a></li>
-                           <li><a href="login">Log in</a></li>
-                           <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                           <li><button type="button" id="sidebarCollapse">
-                              <img src="{{asset('../public/images/menu_icon.png')}}" alt="#" />
-                              </button>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </header>
-{% endblock %}
-
 {% block body %}
 <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
@@ -68,7 +39,7 @@
                         See https://symfony.com/doc/current/security/remember_me.html#}
                         <br>
                         
-                        <a href="{{ path('forgot') }}">Mot de passe oublié</a>
+                         <a href="{{ path('forgot') }}">Mot de passe oublié</a> 
 
                         <div class="checkbox mb-3">
                             <label><input type="checkbox"> Se rappeller de moi</label>

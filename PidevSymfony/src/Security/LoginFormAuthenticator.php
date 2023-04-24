@@ -47,30 +47,18 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        $membre = $token->getMembre();
+        $user = $token->getUser();
 
-
-        if(in_array('Admin',$membre->getRoles(),true)) {
+        if(in_array('ROLE_ADMIN',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin_index'));
         }
-        /*if(in_array('Patient',$user->getRoles(),true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_patient_index'));
-        }
-        if(in_array('Medecin',$user->getRoles(),true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_medecin_index'));
-        }
-        if(in_array('Infirmier',$user->getRoles(),true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_infirmier_index'));
-        }
-        if(in_array('Agent de reclamation',$user->getRoles(),true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_agent_index'));
-        }
-        if(in_array('Pharmacien',$user->getRoles(),true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_pharmacien_index'));
-        }*/
+        // if(in_array('Agent de Reservation',$user->getRoles(),true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('****'));
+        // }
+       
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('app_login'));
+        return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
     }
 
     protected function getLoginUrl(Request $request): string
