@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProduitRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -26,7 +27,7 @@ class Produit
     #[Assert\NotBlank(message: "Veuillez entrer un nom pour le produit")]
     #[Assert\Length(
         min: 3,
-        max: 9,
+        max: 15,
         minMessage: "Le nom d'un produit doit comporter au moins {{ limit }} caractères.",
         maxMessage: "Le nom d'un produit doit comporter au plus {{ limit }} caractères."
     )]
@@ -66,10 +67,13 @@ class Produit
     private ?Categorie $categorie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image;
+    private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Offre $Offre = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $rate = null;
 
     public function getId(): ?int
     {
@@ -204,6 +208,18 @@ class Produit
     public function setOffre(?Offre $Offre): self
     {
         $this->Offre = $Offre;
+
+        return $this;
+    }
+
+    public function getRate(): ?float
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?float $rate): self
+    {
+        $this->rate = $rate;
 
         return $this;
     }

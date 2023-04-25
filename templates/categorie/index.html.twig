@@ -5,8 +5,7 @@
 	<div class="sidebar pe-4 pb-3">
 		<nav class="navbar bg-secondary navbar-dark">
 			<a href="index.html" class="navbar-brand mx-4 mb-3">
-				<h3 class="text-primary">
-					<i class="fa fa-user-edit me-2"></i>MyCinema</h3>
+				<h3 class="text-primary">MyCinema</h3>
 			</a>
 			<div class="d-flex align-items-center ms-4 mb-4">
 				<div class="position-relative">
@@ -44,7 +43,7 @@
 			</div>
 		</nav>
 	</div>
-	<!-- Sidebar End -->
+	<!-- Sidebar End  -->
 {% endblock %}
 
 {% block changeMe %}
@@ -63,21 +62,27 @@
 				<div class="col-12">
 					<div class="bg-secondary rounded h-100 p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
-							<h6 class="mb-4">Liste des Categories</h6>
+							<h6 class="mb-4">Liste des categories</h6>
 							<a href="/categorie/liste">Show All</a>
 						</div>
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
 									<tr>
-										<th style="width:65%">Catégorie</th>
+										<th style="width:35%">Catégories</th>
+										<th style="width:29%">Nombre des Produits</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for categorie in categories %}
+									{% set sorted_categories = categories|sort((a, b) => b.produits|length <=> a.produits|length) %}
+
+									{% for categorie in sorted_categories %}
 										<tr>
 											<td>{{ categorie.nom | upper }}</td>
+											<td>
+												{{ categorie.produits|length }}
+											</td>
 											<td>
 												<a href="/categorie/details/{{ categorie.id }}" class="btn btn-dark" data-toggle="modal" data-target="#produit-details-{{ categorie.id }}">Détails</a>
 												<a href="/categorie/modif/{{ categorie.id }}" class="btn btn-dark">Modifier</a>
@@ -90,6 +95,7 @@
 						</div>
 					{% else %}
 						<p>Aucune Catégorie</p>
+						<a href="/categorie/liste">Show All</a>
 					{% endif %}
 				</div>
 			</div>

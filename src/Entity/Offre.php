@@ -26,10 +26,10 @@ class Offre
     #[ORM\Column(name: "pourcentage", type: "integer", nullable: false)]
     private ?int $pourcentage;
 
-
+    /*
     #[ORM\Column(name: "idProduit", type: "integer", nullable: true)]
     private ?int $idproduit = 0;
-
+    */
     #[ORM\OneToMany(mappedBy: 'Offre', targetEntity: Produit::class)]
     private Collection $produits;
 
@@ -54,7 +54,7 @@ class Offre
 
         return $this;
     }
-
+    /*
     public function getIdproduit(): ?int
     {
         return $this->idproduit;
@@ -66,7 +66,7 @@ class Offre
 
         return $this;
     }
-
+*/
     /**
      * @return Collection<int, Produit>
      */

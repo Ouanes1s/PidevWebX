@@ -3,13 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
+use App\Entity\Offre;
 use App\Entity\Produit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 
 
@@ -32,11 +33,11 @@ class ProduitType extends AbstractType
             ])
             ->add('quantite')
             ->add('descriptionproduct')
-            //dans le formulaire d'ajout du produit, ça va creer un champ de type upload (image)
-            ->add('photo', FileType::class, [
-                'label' => 'Brochure (PDF file)',
 
-                // unmapped means that this field is not associated to any entity property
+            ->add('photo', FileType::class, [
+                'label' => 'Image du produit (Image file seulement)',
+
+                // unmapped means that this field (photo) is not associated to any entity property
                 'mapped' => false,
 
                 // make it optional so you don't have to re-upload the PDF file
@@ -50,27 +51,35 @@ class ProduitType extends AbstractType
                         'maxSize' => '1024k',
                         'mimeTypes' => [
                             'image/gif',
-                            'image/jpeg',
                             'image/jpg',
+                            'image/jpeg',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
             ])
             /*
-            ->add('imageproduct', FileType::class, [
+            ->add('photo', FileType::class, [
                 'label' => 'Image du produit',
                 'required' => false,
                 'mapped' => false,
                 'attr' => ['class' => 'form-control bg-dark'],
             ])
-            */
+*/
             //->add('insertiondate')
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'form-select'
+                ]
+            ])
+            ->add('offre', EntityType::class, [
+                'class' => Offre::class,
+                'choice_label' => 'pourcentage',
+                'attr' => [
+                    'class' => 'form-select',
+                    'multiple aria-label' => "multiple select example"
                 ]
             ]);;;
     }

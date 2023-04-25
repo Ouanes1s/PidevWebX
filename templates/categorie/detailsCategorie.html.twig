@@ -5,8 +5,7 @@
 	<div class="sidebar pe-4 pb-3">
 		<nav class="navbar bg-secondary navbar-dark">
 			<a href="index.html" class="navbar-brand mx-4 mb-3">
-				<h3 class="text-primary">
-					<i class="fa fa-user-edit me-2"></i>MyCinema</h3>
+				<h3 class="text-primary">MyCinema</h3>
 			</a>
 			<div class="d-flex align-items-center ms-4 mb-4">
 				<div class="position-relative">
@@ -37,8 +36,14 @@
 						<a href="/categorie/ajout" class="dropdown-item">Nouvelle Catégorie</a>
 					</div>
 				</div>
-				<a href="/offre/liste" class="nav-item nav-link">
-					<i class="fa fa-th me-2"></i>Offres</a>
+				<div class="nav-item dropdown">
+					<a href="/offre/liste" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">
+						<i class="fa fa-laptop me-2"></i>Offres</a>
+					<div class="dropdown-menu bg-transparent border-0">
+						<a href="/offre/liste" class="dropdown-item">Liste Des Offres</a>
+						<a href="/offre/ajout" class="dropdown-item">Nouvelle Offre</a>
+					</div>
+				</div>
 				<a href="form.html" class="nav-item nav-link">
 					<i class="fa fa-keyboard me-2"></i>Avis</a>
 			</div>
