@@ -58,7 +58,8 @@
 
 {% block body %}
 
-    <h1>Reservation </h1>
+
+    
 	<div class="row">
 				{{ form_start(form, {'attr': {'class': 'form-row align-items-end'}}) }}
 				<div class="form-row align-items-end">
@@ -68,6 +69,7 @@
 				</div>
 				{{ form_end(form) }}
 			</div>
+
 
 
 	
@@ -110,6 +112,26 @@
         {% endfor %}
         </tbody>
     </table>
+
+	 <h3>Reservation Count by Date</h3>
+    <table>
+        <tr>
+            <th>Date </th>
+			<th> </th>
+			
+            <th> Number of reservations </th>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.date_res|date('Y-m-d') }}</td>
+				<td> </td>
+				<td> </td>
+				
+                <td>{{ result.nb_res_same_date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 
    
 {% endblock %}

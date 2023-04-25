@@ -17,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class OffreRController extends AbstractController
 {
     #[Route('/offre/liste', name: 'liste_offre')]
-    public function index(Request $request, ManagerRegistry $registry): Response
+    public function index(Request $request, ManagerRegistry $registry, OffreRRepository $OffreRRepository): Response
     {
         $rechercher = new RechercheOffre();
         $form = $this->createForm(RechercheOffreType::class, $rechercher);
@@ -25,6 +25,14 @@ class OffreRController extends AbstractController
 
         $offres = [];
         $offres = $registry->getRepository(OffreR::class)->findAll();
+
+        $qb = $OffreRRepository->createQueryBuilder('r');
+        $qb->select('r.datefin_offr, COUNT(r.id) as nb_offr_same_date')
+    ->groupBy('r.datefin_offr')
+    ->orderBy('r.datefin_offr', 'DESC'); // Order by date in ascending order
+ 
+ $results = $qb->getQuery()->getResult();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $nomfilm_offr = $rechercher->getNomfilmOffr();
             if ($nomfilm_offr != "")
@@ -32,7 +40,7 @@ class OffreRController extends AbstractController
             else
                 $offres = $registry->getRepository(OffreR::class)->findAll();
         }
-        return  $this->render('offre_r/index.html.twig', ['form' => $form->createView(), 'offres' => $offres]);
+        return  $this->render('offre_r/index.html.twig', ['form' => $form->createView(), 'offres' => $offres, 'results' => $results]);
     }
 
     #[Route('/offre/ajout', name: 'ajout_offre')]

@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
-use Swift_Mailer;
-use Swift_Message;
+use App\Services\MailerService;
+use Symfony\Component\Mime\Email;
 
 
 class ReservationController extends AbstractController
 {
     #[Route('/reservation/liste', name: 'liste_reservation')]
-    public function index(Request $request, ManagerRegistry $registry): Response
+    public function index(Request $request, ManagerRegistry $registry,ReservationRepository $ReservationRepository): Response
     {   
         $rechercher = new RechercheReservation();
         $form = $this->createForm(RechercheReservationType::class, $rechercher);
@@ -27,7 +27,16 @@ class ReservationController extends AbstractController
 
         $reservations = [];
         $reservations = $registry->getRepository(Reservation::class)->findAll();
-        if ($form->isSubmitted() && $form->isValid()) {
+        //Get the number of reservations with the Date 
+        $qb = $ReservationRepository->createQueryBuilder('r');
+       $qb->select('r.date_res, COUNT(r.id) as nb_res_same_date')
+   ->groupBy('r.date_res')
+   ->orderBy('r.date_res', 'ASC'); // Order by date_res in ascending order
+
+   $results = $qb->getQuery()->getResult();
+   
+
+    if ($form->isSubmitted() && $form->isValid()) {
             
             $email_res = $rechercher->getEmailRes();
             if ($email_res != "")
@@ -36,33 +45,37 @@ class ReservationController extends AbstractController
                 $reservations = $registry->getRepository(Reservation::class)->findAll();
 
         }
-        return  $this->render('reservation/index.html.twig', ['form' => $form->createView(), 'reservations' => $reservations]);
+        return  $this->render('reservation/index.html.twig', ['form' => $form->createView(), 'reservations' => $reservations, 'results' => $results ]);
     
      
     
     }
 
     #[Route('/reservation/ajout', name: 'ajout_reservation')]
-    public function ajoutReservation(Request $request, ManagerRegistry $Registry,Swift_Mailer $mailer)
+    public function ajoutReservation(Request $request, ManagerRegistry $Registry,MailerService $mailerservice)
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
         $entitymanager = $Registry->getManager();
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted()&& $form->isValid() ) {
+           $data = $form->getData();
+$mail = (new Email())
+    ->subject('Confirmation Reservation')
+    ->from('amine.khalfaoui@esprit.tn')
+    ->to('amine.khalfaoui98@gmail.com')
+    ->htmlTemplate('email/contact.html.twig')
+    ->context([
+        'name' => $data['nom_res'],
+        'date' => $data['date_res']
+    ]);
+
+$mailerservice->send($mail);
+
+
             $entitymanager->persist($reservation);
             $entitymanager->flush();
-                   //BUNDLE MAILER
- $message = (new Swift_Message('MyCinema Votre compte a été créer avec succés'))
- ->setFrom('amine.khalfaoui@esprit.tn')
- ->setTo('amine.khalfaoui@esprit.tn')
- ->setBody("<p> Bonjour cher utilisateur </p> <br> Merci de votre inscription vous pouvez maintenant vous authentifier en 
- toute securité en utilisiant vos identifiants !
- En cas de probléme vous pourrez toujours contacter cet email ou les service de reclamation directement via notre site ","text/html");
 
-//send mail
-$mailer->send($message);
-$this->addFlash('message','Veuillez checkez votre boite mail !');
 
             
             return $this->redirectToRoute('ajout_reservation');

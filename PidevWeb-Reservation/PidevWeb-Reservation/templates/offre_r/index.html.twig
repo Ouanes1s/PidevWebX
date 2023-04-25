@@ -47,5 +47,23 @@
         </tbody>
     </table>
 
+     <h3>Reservation Count by Expiration Date</h3>
+    <table>
+        <tr>
+            <th>Date  </th>
+			<th> </th>
+			
+            <th> Number of Offers </th>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.datefin_offr|date('Y-m-d') }}</td>
+				<td> </td>
+				<td> </td>
+				
+                <td>{{ result.nb_offr_same_date }}</td>
+            </tr>
+        {% endfor %}
+
     
 {% endblock %}
