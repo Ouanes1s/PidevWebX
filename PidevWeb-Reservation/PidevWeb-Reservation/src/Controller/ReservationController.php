@@ -14,10 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Services\MailerService;
 use Symfony\Component\Mime\Email;
+use Twig\Environment;
 
 
 class ReservationController extends AbstractController
 {
+
+   
     #[Route('/reservation/liste', name: 'liste_reservation')]
     public function index(Request $request, ManagerRegistry $registry,ReservationRepository $ReservationRepository): Response
     {   
@@ -59,18 +62,22 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
         $entitymanager = $Registry->getManager();
         if ($form->isSubmitted()&& $form->isValid() ) {
-           $data = $form->getData();
-$mail = (new Email())
-    ->subject('Confirmation Reservation')
-    ->from('amine.khalfaoui@esprit.tn')
-    ->to('amine.khalfaoui98@gmail.com')
-    ->htmlTemplate('email/contact.html.twig')
-    ->context([
-        'name' => $data['nom_res'],
-        'date' => $data['date_res']
-    ]);
+           /* $data = $form->getData();
+            $email = (new Email())
+                ->subject('Confirmation Reservation')
+                ->from('amine.khalfaoui@esprit.tn')
+                ->to('amine.khalfaoui98@gmail.com')
+                ->html($this->twig->render('email/contact.html.twig', [
+                    'name' => $data['nom_res'],
+                    'date' => $data['date_res']
+                ]), 'text/html');
+            
+            $this->mailer->send(subject:('Confirmation Reservation'),from:('amine.khalfaoui@esprit.tn'),to:('amine.khalfaoui98@gmail.com'),html:($this->twig->render('email/contact.html.twig', [
+                'name' => $data['nom_res'],
+                'date' => $data['date_res']
+            ])));*/
 
-$mailerservice->send($mail);
+
 
 
             $entitymanager->persist($reservation);
@@ -113,7 +120,7 @@ $mailerservice->send($mail);
             return $this->redirectToRoute('liste_reservation');
         }
 
-        return $this->render('blog/modifReservation.html.twig', ['form' => $form->createView()]);
+        return $this->render('reservation/modifReservation.html.twig', ['form' => $form->createView()]);
     }
 
     #[Route('/reservation/supp/{id}', name: 'supp_reservation')]
@@ -131,7 +138,18 @@ $mailerservice->send($mail);
         return $this->redirectToRoute('liste_reservation');
     }
 
-    
+    #[Route('/reservation/triDate', name: 'triDate')]
+    public function trierParDate(ManagerRegistry $registry): Response
+    {
+        $reservations = $registry
+            ->getRepository(Reservation::class)
+            ->findBy([], ['date_res' => 'DESC']);
+
+        return $this->render('reservation/ResTries.html.twig', [
+            'reservations' => $reservations,
+        ]);
+
+    }
 
     // src/Controller/ReservationController.php
 

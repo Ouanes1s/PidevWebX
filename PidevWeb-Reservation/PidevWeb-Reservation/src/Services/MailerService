@@ -44,21 +44,21 @@ class MailerService
      * @throws \Twig\Error\SyntaxError
      */
     public function send(string $subject, string $from, string $to, string $template, array $parameters): void
-    {
-        try {
-            $email = (new Email())
-                ->from($from)
-                ->to($to)
-                ->subject($subject)
-                ->html(
-                    $this->twig->render($template, $parameters)
-                );
+{
+    try {
+        $email = (new Email())
+            ->from($from)
+            ->to($to)
+            ->subject($subject)
+            ->html(
+                $this->twig->render($template, $parameters)
+            );
 
-            $this->mailer->send($email);
-        } catch (TransportException $e) {
-            print $e->getMessage()."\n";
-            throw $e;
-        }
-
+        $this->mailer->send($email);
+    } catch (TransportExceptionInterface $e) {
+        print $e->getMessage()."\n";
+        throw $e;
     }
+
+}
 }

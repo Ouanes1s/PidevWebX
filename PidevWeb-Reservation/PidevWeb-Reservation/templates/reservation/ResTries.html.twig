@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block Sidebar %}
 					<!-- Sidebar Start -->
 					<div class="sidebar pe-4 pb-3">
@@ -57,50 +56,60 @@
 
 
 
-
-
-
 {% block body %}
 
-    <h1>blogs</h1>
-    <div class="row">
-				{{ form_start(form, {'attr': {'class': 'form-row align-items-end'}}) }}
-				<div class="form-row align-items-end">
-					<div class="col">
-						{{ form_row(form.email_blg, {'attr': {'class': 'form-control bg-dark border-0', 'placeholder': 'Rechercher'}}) }}
-					</div>
-				</div>
-				{{ form_end(form) }}
-			</div>
+
+    
+
+
+
+	
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Titre_blg</th>
-                <th>Email_blg</th>
-                <th>Contenu_blg</th>
+                <th>Nom_res</th>
+                <th>Prenom_res</th>
+                <th>Email_res</th>
+                <th>Nom_evnmt</th>
+                <th>Typeticket_res</th>
+                <th>Date_res</th>
+                <th>Code_offr</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for blog in blogs %}
+        {% for reservation in reservations %}
             <tr>
-                <td>{{ blog.id }}</td>
-                <td>{{ blog.titreBlg }}</td>
-                <td>{{ blog.emailBlg }}</td>
-                <td>{{ blog.contenuBlg }}</td>
-               	
-                  
-                
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.nomRes }}</td>
+                <td>{{ reservation.prenomRes }}</td>
+                <td>{{ reservation.emailRes }}</td>
+                <td>{{ reservation.nomEvnmt }}</td>
+                <td>{{ reservation.typeticketRes }}</td>
+                <td>{{ reservation.dateRes }}</td>
+                <td>{{ reservation.codeOffr }}</td>
+				<td>
+			    <a href="/PidevWeb-Reservation/public/index.php/reservation/modif/{{ reservation.id }}" class="btn btn-dark m-2">Modifier</a>
+				<a href="/PidevWeb-Reservation/public/index.php/reservation/produit/supp/{{ reservation.id }}" class="btn btn-outline-danger m-2" onclick="return confirm('Etes-vous sûr?');">Supprimer</a>
+				</td>				
+				
+				
+                <td>
+                    
+                </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    
+
+
+
+   
 {% endblock %}

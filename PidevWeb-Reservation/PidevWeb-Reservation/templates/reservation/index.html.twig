@@ -99,6 +99,10 @@
                 <td>{{ reservation.typeticketRes }}</td>
                 <td>{{ reservation.dateRes }}</td>
                 <td>{{ reservation.codeOffr }}</td>
+				<td>
+			    <a href="/PidevWeb-Reservation/public/index.php/reservation/modif/{{ reservation.id }}" class="btn btn-dark m-2">Modifier</a>
+				<a href="/PidevWeb-Reservation/public/index.php/reservation/produit/supp/{{ reservation.id }}" class="btn btn-outline-danger m-2" onclick="return confirm('Etes-vous sûr?');">Supprimer</a>
+				</td>				
 				
 				
                 <td>
