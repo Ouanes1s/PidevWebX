@@ -1,0 +1,40 @@
+{% extends 'front.html.twig' %}
+{% block content %}
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <p class="d-inline-block bg-secondary text-primary py-1 px-4">Our Parkings</p>
+                <h1 class="text-uppercase">Our Parkings</h1>
+            </div>
+            <div class="row g-4">
+                {% if parkings %}
+                    {% for parking in parkings %}
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                            <div class="team-item">
+                                <div class="team-img position-relative overflow-hidden">
+                                    <img class="img-fluid" src="{{ vich_uploader_asset(parking, 'imageFile') }}" alt="parking-img">
+                                    <div class="team-social">
+                                        <a class="btn btn-square" href="">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a class="btn btn-square" href="">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-square" href="">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary text-center p-4 position-relative">
+                                    <h5 class="text-uppercase">{{ parking.nomParking }}</h5>
+                                    <span class="text-primary d-block">{{ parking.prixParking }} TND</span>
+                                    <a href="{{ path('parking-details', {'id':parking.idParking}) }}" class="btn btn-primary mt-2">More Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

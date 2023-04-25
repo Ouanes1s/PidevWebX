@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block changeMe %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+                <h6 class="mb-4">Ajouter un nouveau parking</h6>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <form method="post">
+                    <div class="mb-3">
+                        {{ form_label(form.nomParking, 'Nom') }}
+                        {{ form_widget(form.nomParking, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.nomParking) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.imageFile, 'Logo') }}
+                        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.imageFile) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.capaciteParking, 'Capacite') }}
+                        {{ form_widget(form.capaciteParking, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.capaciteParking) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.takenpParking, 'Places Taken') }}
+                        {{ form_widget(form.takenpParking, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.takenpParking) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.prixParking, 'Prix') }}
+                        {{ form_widget(form.prixParking, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.prixParking) }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary w-100 m-2">Créer</button>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

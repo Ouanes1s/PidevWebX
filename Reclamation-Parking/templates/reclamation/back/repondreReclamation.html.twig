@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+{% block changeMe %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+                <div class="service-item position-relative overflow-hidden bg-secondary d-flex h-100 p-5 ps-0">
+                    <div class="bg-dark d-flex flex-shrink-0 align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <img class="/frontend/img-fluid" src="/frontend/img/haircut.png" alt="">
+                    </div>
+                    <div class="ps-4">
+                        <h3 class="text-uppercase mb-3">{{ reclamation.typeReclamation }}</h3>
+                        <p>{{ reclamation.messageReclamation }}</p>
+                        <span class="text-uppercase text-primary d-block">{{ reclamation.importanceReclamation }}</span>
+                        <span class="text-uppercase text-primary d-block">{{ reclamation.categorieReclamation }}</span>
+                    </div>
+                    <a class="btn btn-square" href="">
+                        <i class="fa fa-plus text-primary"></i>
+                    </a>
+                </div>
+                <h6 class="mb-4">Reponse de cette reclamation</h6>
+                <form method="post">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    <div class="mb-3">
+                        {{ form_label(form.reponseReclamation, 'Reponse') }}
+                        {{ form_widget(form.reponseReclamation, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.reponseReclamation) }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary w-100 m-2">Envoyer</button>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

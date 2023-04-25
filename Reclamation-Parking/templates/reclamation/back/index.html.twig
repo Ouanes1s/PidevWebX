@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block changeMe %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+                <div class="form-row align-items-end">
+                    <div class="col">
+                    </div>
+                </div>
+
+            </div>
+            {% if reclamations %}
+            <div class="col-12">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-4">Liste des Reclamations</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Categorie</th>
+                                <th>Message</th>
+                                <th>Etat</th>
+                                <th>Importance</th>
+                                <th>Date</th>
+                                <th>Reponse</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reclamation in reclamations %}
+                                <tr>
+                                    <td>{{ reclamation.typeReclamation }}</td>
+                                    <td>{{ reclamation.categorieReclamation }}</td>
+                                    <td>{{ reclamation.messageReclamation }}</td>
+                                    <td>{{ reclamation.etatReclamation }}</td>
+                                    <td>{{ reclamation.importanceReclamation }}</td>
+                                    <td>{{ reclamation.dateReclamation | date }}</td>
+                                    <td>{{ reclamation.reponseReclamation ? reclamation.reponseReclamation : "Non traitée" }}</td>
+                                    <td>
+                                        <a href="{{ path('modifier-reclamation',{'id':reclamation.IdReclamation}) }}" class="btn btn-dark">Répondre</a>
+                                        <a href="{{ path('delete-reclamation',{'id':reclamation.IdReclamation}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr de supprimer cette réclamation?');">Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>Aucune réclamation</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
