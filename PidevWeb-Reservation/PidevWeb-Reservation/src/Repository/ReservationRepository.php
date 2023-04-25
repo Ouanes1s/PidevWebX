@@ -39,6 +39,21 @@ class ReservationRepository extends ServiceEntityRepository
         }
     }
 
+    
+
+    public function getReservationCounts()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r.dateRes, COUNT(r.id) as reservationCount
+            FROM App\Entity\Reservation r
+            GROUP BY r.dateRes'
+        );
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

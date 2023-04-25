@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -130,4 +133,31 @@ class Reservation
 
         return $this;
     }
+    
+    public function getReservationCounts(EntityManagerInterface $entityManager): array
+    {
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->select('r.dateRes, COUNT(r.id) as reservationCount')
+            ->from(Reservation::class, 'r')
+            ->groupBy('r.dateRes')
+            ->orderBy('r.dateRes', 'ASC');
+
+        $result = $queryBuilder->getQuery()->getResult();
+
+        return $result;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+

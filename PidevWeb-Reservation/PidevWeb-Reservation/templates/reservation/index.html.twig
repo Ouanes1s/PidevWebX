@@ -54,10 +54,23 @@
 					<!-- Sidebar End -->
 				{% endblock %}
 
-{% block title %}Reservation {% endblock %}
+
 
 {% block body %}
+
     <h1>Reservation </h1>
+	<div class="row">
+				{{ form_start(form, {'attr': {'class': 'form-row align-items-end'}}) }}
+				<div class="form-row align-items-end">
+					<div class="col">
+						{{ form_row(form.email_res, {'attr': {'class': 'form-control bg-dark border-0', 'placeholder': 'Rechercher'}}) }}
+					</div>
+				</div>
+				{{ form_end(form) }}
+			</div>
+
+
+	
 
     <table class="table">
         <thead>
@@ -84,6 +97,8 @@
                 <td>{{ reservation.typeticketRes }}</td>
                 <td>{{ reservation.dateRes }}</td>
                 <td>{{ reservation.codeOffr }}</td>
+				
+				
                 <td>
                     
                 </td>
