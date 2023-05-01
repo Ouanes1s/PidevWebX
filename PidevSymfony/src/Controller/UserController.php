@@ -40,6 +40,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         $users = [];
         $users = $registry->getRepository(User::class)->findAll();
+         // Get the number of users with the ROLE_USER role
+    $qb = $userRepository->createQueryBuilder('u');
+    $qb->select('COUNT(u.id)');
+    $qb->where('u.roles LIKE :role');
+    $qb->setParameter('role', '[]');
+    $nb_users_role_user = $qb->getQuery()->getSingleScalarResult();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $nom_user = $rechercher->getNomUser();
             if ($nom_user != "")
@@ -47,7 +54,7 @@ class UserController extends AbstractController
             else
                 $users = $registry->getRepository(User::class)->findAll();
         }
-        return  $this->render('user/indexAdmin.html.twig', ['form' => $form->createView(), 'users' => $users]);
+        return  $this->render('user/indexAdmin.html.twig', ['form' => $form->createView(), 'users' => $users,'nb_users_role_user' => $nb_users_role_user,]);
     }
 
     #[Route('/utilisateur', name: 'app_user_index', methods: ['GET'])]

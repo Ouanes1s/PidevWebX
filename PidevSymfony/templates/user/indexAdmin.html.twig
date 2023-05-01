@@ -4,6 +4,9 @@
 <body>
 
     <div class="container-fluid pt-4 px-4">
+    <h6 class="mb-4">{{ users|length }} Utilisateurs au total</h6>
+    <h6 class="mb-4">{{ nb_users_role_user }} utilisateurs sont des membres de l'application.</h6>
+    <h6 class="mb-4">{{ users|length - nb_users_role_user }} sont de agents de l'application.</h6>
                 <div class="bg-secondary rounded-top p-4">
 			<div class="row">
 				{{ form_start(form, {'attr': {'class': 'form-row align-items-end'}}) }}

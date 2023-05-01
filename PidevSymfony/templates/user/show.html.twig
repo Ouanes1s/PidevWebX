@@ -171,7 +171,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{asset('images/undraw_Male_avatar_re_hguk.png')}}" alt="Profile" class="rounded-circle">
+            <img src={{asset('back/img/user.jpg')}} alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">Administrateur MyCinema</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -215,7 +215,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ path('app_logout') }}">
+              <a class="dropdown-item d-flex align-items-center" href={{ path('app_logout') }}>
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -240,7 +240,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ path('app_user_index') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href={{ path('app_user_index') }}>Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -254,7 +254,7 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="{{asset('images/pharmacisx.png')}}"alt="Profile" class="rounded-circle">
+              <img src={{asset('back/img/user.jpg')}}alt="Profile" class="rounded-circle">
               <h2>{{ user.nomUser }} {{ user.prenomUser }}</h2>
               <h3>{{ user.email }}</h3>
               <div class="social-links mt-2">

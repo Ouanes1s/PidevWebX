@@ -52,12 +52,24 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if(in_array('ROLE_ADMIN',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin_index'));
         }
+        
         // if(in_array('Agent de Reservation',$user->getRoles(),true)) {
         //     return new RedirectResponse($this->urlGenerator->generate('****'));
         // }
-       
-
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+       // if(in_array('Agent de Stock',$user->getRoles(),true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('****'));
+        // }
+        // if(in_array('Agent de reclamation',$user->getRoles(),true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('****'));
+        // }
+        // if(in_array('Agent de Parking',$user->getRoles(),true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('****'));
+        // }
+         // if(in_array('Agent de Films',$user->getRoles(),true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('****'));
+        // }
+      
+        
         return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
     }
 
